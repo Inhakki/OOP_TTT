@@ -1,17 +1,10 @@
 class Player
 
-  def initialize(type)
+  def initialize(type, character)
     @type = type
-
+    @character = character
   end
 
-  def human?
-    @type == :human
-  end
-
-  def computer?
-    @type == :computer
-  end
 
 
 end
