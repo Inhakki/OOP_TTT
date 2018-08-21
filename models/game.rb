@@ -1,11 +1,17 @@
 require_relative 'computer_player'
 require_relative 'human_player'
+require 'tty-prompt'
 
 class Game
-  def initialize(player_number, grid_width, grid_height)
-    @players = initialize_players(player_option)
+  attr_reader :players
+
+  def initialize(player_number, grid_width, grid_height, character_select, test_run = false)
+    @game_prompt = TTY::Prompt.new
+    @test_run = test_run
+    @players = initialize_players(player_number)
     @grid = Grid.new(grid_width, grid_height)
-    @current_turn = 0
+    @character_select = character_select
+
   end
 
   def start
@@ -19,32 +25,36 @@ class Game
   private
 
   def game_steps
-    while !@grid.winner? || !@grid.cats_game
+    while !@grid.winner? || !@grid.cats_game?
+      byebug
 
+    end
+
+    if @grid.winner?
+      @game_prompt
     end
   end
 
-  def toggle_turns
-    current_turn == 0 ? 1 : 0
-  end
+  def initialize_players(player_number)
+    remainder = [:x, :o]
+    remainder.delete(@character_select)
 
-  def initialize_players(players)
-    if players  == 1
-      [HumanPlayer.new, ComputerPlayer.new].shuffle
-    else
-      [HumanPlayer.new, HumanPlayer.new]
+    byebug
+    if @test_run
+      #If we have a test initialize we can better test our computer players against each other.
+      return [ComputerPlayer.new(:x, "Computer 1"), ComputerPlayer.new(:o, "Computer 2")].shuffle
+    end
+
+    if player_number  == 1 && !@test_run
+      [HumanPlayer.new(@character_select, "Player 1"), ComputerPlayer.new(remainder, "Computer")].shuffle
+    elsif
+      [HumanPlayer.new(@character_select, "Player 1"), HumanPlayer.new(remainder, "Player 2")].shuffle
     end
   end
 
-  # def randomize_order
-  #   if @players > 1
-  #     @players.sample
+  # def evaluate_turn
+  #   unless @grid.winner?
+  #     @turn += 1
   #   end
   # end
-
-  def evaluate_turn
-    unless @grid.winner?
-      @turn += 1
-    end
-  end
 end

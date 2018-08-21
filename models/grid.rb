@@ -4,6 +4,7 @@ class Grid
   attr_accessor :grid
 
   def initialize(grid_width, grid_height)
+    # currently, height and width are not variable.
     @height = grid_height
     @width = grid_width
     @grid = build_grid(grid_width, grid_height)
@@ -11,7 +12,7 @@ class Grid
 
   def occupy(x_axis, y_axis, character)
     if @grid[y_axis][x_axis]
-      raise "Invalid, that space is already taken"
+      return false
     end
 
     @grid[y_axis][x_axis] = character
@@ -26,7 +27,7 @@ class Grid
   end
 
   def cats_game?
-    @grid.grid.compact.none?(nil)
+    @grid.flatten.none?(nil)
   end
 
   private

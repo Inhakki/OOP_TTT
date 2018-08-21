@@ -1,9 +1,9 @@
-# require_relative 'spec_helper'
+require_relative 'spec_helper'
 require_relative '../models/grid'
 
 RSpec.describe 'grid' do
   describe 'grid behaves as tic tac toe grid' do
-    let (:grid){ Grid.new(3, 3) }
+    let (:grid) { Grid.new(3, 3) }
 
     it 'should build grid on initialize' do
       comparison_grid = [
@@ -13,6 +13,21 @@ RSpec.describe 'grid' do
       ]
 
       expect(grid.grid).to eq(comparison_grid)
+    end
+
+    context "it should properly occupy spaces on a grid" do
+      it "should return the right character when occupied in that space" do
+        grid.occupy(0, 0, :x)
+
+        expect(grid.grid[0][0]).to eq(:x)
+      end
+
+      it "should not allow a character to be placed on an already occupied space" do
+        grid.occupy(0, 0, :x)
+
+        expect(grid.occupy(0, 0, :o)).to eq(false)
+        expect(grid.grid[0][0]).to eq(:x)
+      end
     end
 
     context "evaluates rows correctly for winners" do
@@ -50,6 +65,7 @@ RSpec.describe 'grid' do
         expect(grid.winner?).to be_falsey
       end
     end
+
 
     context "evaluates diagonal wins correctly" do
       it "should evaluate top left to bottom right" do
@@ -93,8 +109,9 @@ RSpec.describe 'grid' do
         expect(grid.winner?).to be_falsey
         expect(grid.cats_game?).to be_truthy
       end
+
+      #TODO: Make it smart
+      it "evaluates for cats game the smart way"
     end
-
   end
-
 end

@@ -7,4 +7,5 @@ gem 'rspec', 3.8
 gem 'awesome_print'
 gem 'byebug'
 gem 'rubocop', require: false
-gem 'tty'
+gem 'tty-prompt'
+gem 'vedeu'
