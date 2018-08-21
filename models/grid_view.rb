@@ -1,4 +1,4 @@
-require 'tty-table'
+# require 'vedeu'
 
 class GridView
   include Vedeu
@@ -6,8 +6,7 @@ class GridView
   def show_grid_view(grid)
 
     interface :grid do
-      centred true
-      text "Test Grid"
+
     end
   end
 end

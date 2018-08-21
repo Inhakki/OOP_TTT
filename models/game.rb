@@ -1,5 +1,7 @@
 require_relative 'computer_player'
 require_relative 'human_player'
+require_relative 'grid'
+require_relative 'grid_view'
 require 'tty-prompt'
 
 class Game
@@ -11,7 +13,6 @@ class Game
     @players = initialize_players(player_number)
     @grid = Grid.new(grid_width, grid_height)
     @character_select = character_select
-
   end
 
   def start
@@ -25,21 +26,23 @@ class Game
   private
 
   def game_steps
-    while !@grid.winner? || !@grid.cats_game?
-      byebug
+    byebug
 
-    end
-
-    if @grid.winner?
-      @game_prompt
-    end
+    GridView.new.show_grid_view(@grid)
+    # while !@grid.winner? || !@grid.cats_game?
+    #   byebug
+    #
+    # end
+    #
+    # if @grid.winner?
+    #   @game_prompt
+    # end
   end
 
   def initialize_players(player_number)
     remainder = [:x, :o]
     remainder.delete(@character_select)
 
-    byebug
     if @test_run
       #If we have a test initialize we can better test our computer players against each other.
       return [ComputerPlayer.new(:x, "Computer 1"), ComputerPlayer.new(:o, "Computer 2")].shuffle

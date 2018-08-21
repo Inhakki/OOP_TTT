@@ -1,4 +1,3 @@
-require 'byebug'
 
 class Grid
   attr_accessor :grid
