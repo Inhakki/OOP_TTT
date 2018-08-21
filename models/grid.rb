@@ -67,30 +67,20 @@ class Grid
 
     #only evaluate if height and width are same.
     if @height == @width
+      diagonal_left_start = []
+      diagonal_right_start = []
+      index_adder = 0
 
-      @height.times do |h_index|
-        diagonal_left_start = []
-        diagonal_right_start = []
-        index_adder = 0
+      @grid.each do |row|
+        diagonal_left_start << row[index_adder]
+        diagonal_right_start << row[-(index_adder + 1)]
 
-        @grid.each do |row|
-          diagonal_left_start << row[h_index + index_adder]
-          diagonal_right_start << row[-(h_index) - index_adder +1]
+        index_adder += 1
+      end
 
-
-          index_adder += 1
-        end
-
-        # #TODO fix this
-        puts diagonal_left_start.join(',')
-        puts diagonal_right_start.join(',')
-        # puts all_mono_char?(diagonal_right_start)
-        # puts all_mono_char?(diagonal_left_start)
-
-        if all_mono_char?(diagonal_left_start) || all_mono_char?(diagonal_right_start)
-          winner_exists = true
-          return winner_exists
-        end
+      if all_mono_char?(diagonal_left_start) || all_mono_char?(diagonal_right_start)
+        winner_exists = true
+        return winner_exists
       end
     end
 

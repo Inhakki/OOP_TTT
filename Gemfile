@@ -3,7 +3,7 @@ source "https://rubygems.org"
 
 # gem "rails"
 
-gem 'rspec'
+gem 'rspec', 3.8
 gem 'awesome_print'
 gem 'byebug'
 gem 'rubocop', require: false
