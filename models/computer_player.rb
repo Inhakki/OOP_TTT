@@ -22,6 +22,7 @@ class ComputerPlayer < Player
       end
     end
 
-    grid
+    #tell game that the move was made
+    true
   end
 end

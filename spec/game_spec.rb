@@ -10,15 +10,5 @@ RSpec.describe 'game' do
       expect(game.players[0].class).to eq(ComputerPlayer)
       expect(game.players[1].class).to eq(ComputerPlayer)
     end
-
-    it 'should run a full game with steps with two computers' do
-      game.start
-    end
-  end
-
-  describe 'Game ends should be managed by the game.' do
-    it 'should manage the status of the game' do
-
-    end
   end
 end
