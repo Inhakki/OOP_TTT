@@ -7,6 +7,7 @@ class Grid
     @height = grid_height
     @width = grid_width
     @grid = build_grid(grid_width, grid_height)
+    @winner = nil
   end
 
   def occupy(x_axis, y_axis, character)
@@ -25,6 +26,10 @@ class Grid
     false
   end
 
+  def get_winner
+    return { winner: @winner, grid: @grid }
+  end
+
   def cats_game?
     @grid.flatten.none?(nil)
   end
@@ -36,6 +41,7 @@ class Grid
 
     @grid.each do |row|
       if all_mono_char?(row)
+        @winner = row[0]
         winner_exists = true
         return winner_exists
       end
@@ -54,6 +60,7 @@ class Grid
       end
 
       if all_mono_char?(column)
+        @winner = column[0]
         winner_exists = true
         return winner_exists
       end
@@ -78,7 +85,16 @@ class Grid
         index_adder += 1
       end
 
-      if all_mono_char?(diagonal_left_start) || all_mono_char?(diagonal_right_start)
+      if all_mono_char?(diagonal_left_start)
+        @winner = diagonal_left_start[0]
+
+        winner_exists = true
+        return winner_exists
+      end
+
+      if all_mono_char?(diagonal_right_start)
+        @winner = diagonal_right_start[0]
+
         winner_exists = true
         return winner_exists
       end
