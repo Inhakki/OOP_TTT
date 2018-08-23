@@ -53,13 +53,26 @@ class Game
       else
         puts "O wins"
       end
-      answer = @game_prompt.yes?("Play again?")
+      ask_to_play_again
+    end
 
-      if answer
-        MainMenu.new.start
-      else
-        puts "Thank you for playing! Shutting down..."
-      end
+    if @grid.cats_game?
+      draw_game = GridInterface.new(@grid).render_view
+      puts draw_game
+
+      puts "Game was a draw."
+
+      ask_to_play_again
+    end
+  end
+
+  def ask_to_play_again
+    answer = @game_prompt.yes?("Play again?")
+
+    if answer
+      MainMenu.new.start
+    else
+      puts "Thank you for playing! Shutting down..."
     end
   end
 
