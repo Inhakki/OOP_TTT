@@ -9,6 +9,7 @@ require 'terminal-table'
 class Game
   attr_reader :players, :winner
 
+  #use attr_reader/attr_accessor instead of class variables
   def initialize(player_number, grid_width, grid_height, character_select, test_run = false)
     @game_prompt = TTY::Prompt.new
     @test_run = test_run

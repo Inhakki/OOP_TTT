@@ -27,7 +27,7 @@ class Grid
   end
 
   def get_winner
-    return { winner: @winner, grid: @grid }
+    { winner: @winner, grid: @grid }
   end
 
   def cats_game?
